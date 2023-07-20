@@ -19,13 +19,13 @@ prompt = st.text_input("Hello sir, how many I help you?")
 # prompt templates
 title_template = PromptTemplate(
     input_variables=["topic"],
-    template="give a me title on a book about {topic}",
+    template=" {topic}",
 )
 
 # templates2
 script_template = PromptTemplate(
     input_variables=["title"],
-    template="give me a quick summary of the book in 30 words{title}",
+    template="{title}",
 )
 # memory
 title_memory = ConversationBufferMemory(input_key="topic", memory_key="chat_history")
@@ -65,7 +65,8 @@ if prompt:
     # st.write(response["script"])
     title = title_chain.run(topic=prompt)
     wiki_research = wiki.run(prompt)
-    script = script_chain.run(title=title, wikipedia_research=wiki_research)
+    # script = script_chain.run(title=title, wikipedia_research=wiki_research)
+    script = script_chain.run(title=title)
     st.write(title)
     st.write(script)
 
